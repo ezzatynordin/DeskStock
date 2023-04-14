@@ -6,22 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css">
-    <title>USR</title>
+    <title>DeskStock</title>
 </head>
 <body>
+    <form method="POST" action="login_check.php">
     <div class= "wrapper">
         <div class="container main">
             <div class="row">
                 <div class="col-md-6 side-image">
-                    <!-------image------->
-                    <img src="images/7.png" alt="">
                     <div class="text">
-                        <p>Welcome To User Registration System</p>
+                        <p>Welcome To DeskStock System</p>
                     </div>
                 </div>
                 <div class="col-md-6 right">
                     <div class="input-box">
-                        <header>Create account</header>
+                        <header>Login Form</header>
                         <div class="input-field">
                             <input type="text" class="input" id="email" required autocomplete="off">
                             <label for="email">Email</label>
@@ -31,14 +30,13 @@
                             <label for="password">password</label>
                         </div>
                         <div class="input-field">
-                            <input type="submit" class="submit" value="Sign up">
+                            <input type="submit" class="submit" value="Login">
                         </div>
-                        <div class="signin">
-                            <span>Already have an account? <a href="#">Log in here</a></span>
-                        </div>
+                        
                     </div>
             </div>
         </div>
     </div>
+    </form>
 </body>
 </html>
