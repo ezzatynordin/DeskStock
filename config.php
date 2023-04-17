@@ -1,6 +1,6 @@
 <?php
 $serverName = "F1-LAPTOP-MPC\SQLEXPRESS";
-$connectionInfo = array( "Database"=>"DeskStock");
+$connectionInfo = array( "Database"=>"deskStock");
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
 if (!$conn) {

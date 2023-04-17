@@ -32,7 +32,10 @@
                         <div class="input-field">
                             <input type="submit" class="submit" value="Login">
                         </div>
-                        
+                        <div class="signin">
+                            <span>Don't have an account? <a href="register.php">Register here</a></span>
+                        </div>
+
                     </div>
             </div>
         </div>
