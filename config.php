@@ -11,8 +11,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "SELECT COUNT(*) AS count FROM users WHERE email = '$email'";
-    $stmt = sqlsrv_query($conn, $sql);
+    echo($email);
+    echo($password);
+
+    $sql = "SELECT COUNT(*) AS count FROM users WHERE email = (?)";
+    $params = array($email);
+    $stmt = sqlsrv_query($conn, $sql, $params);
     if ($stmt === false) {
         die('Query failed: '.print_r( sqlsrv_errors(), true));
     }
@@ -21,8 +25,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     if ($row['count'] > 0) {
         echo 'Email address already registered.';
     } else {
-        $sql = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
-        $stmt = sqlsrv_query($conn, $sql);
+        $sql = "INSERT INTO users (email, password) VALUES (?,?)";
+        $params = array($email, $password);
+        $stmt = sqlsrv_query($conn, $sql, $params);
         if ($stmt === false) {
             die('Query failed: '.print_r( sqlsrv_errors(), true));
         }
