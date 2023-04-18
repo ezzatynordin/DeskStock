@@ -1,12 +1,10 @@
 <?php
 
-if($_GET['success'] == 'true')
-{
-    echo '<script> alert("Registration Success"); </script>';
-}
+//if($_GET['success'] == 'true')
+//{ echo '<script> alert("Registration Success"); </script>'; }
+
 // Connect to the database
 include 'config.php';
-
 
 // Check if the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
