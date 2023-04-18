@@ -26,21 +26,19 @@
                                 <label for="email">Email</label>
                             </div>
                             <div class="input-field">
-                                <input type="password" class="input" id="password" required>
+                                <input type="password" class="input" id='password' required>
                                 <label for="password">password</label>
                             </div>
                             <div class="input-field">
                                 <input type="submit" class="submit" value="Sign up">
                             </div>
-                        </div>
-                        <div class="signin">
-                            <span>Already have an account? <a href="login.php">Log in here</a></span>
+                        </form>
+                            <div class="signin">
+                                <span>Already have an account? <a href="login.php">Log in here</a></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-</body>
-
+    </body>
     </html>
