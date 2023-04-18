@@ -1,3 +1,37 @@
+<?php
+// Connect to the database
+include 'config.php';
+
+
+// Check if the form has been submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the email and password from the form
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    // Query the database to check if the user is registered
+    $query = "SELECT * FROM users WHERE email = ? AND password = ?";
+    $params = array($email, $password);
+    $result = sqlsrv_query($conn, $query, $params);
+
+    // If the query returns a row, the user is registered and can be logged in
+    if (sqlsrv_has_rows($result)) {
+        // Start the session and store the user's email
+        session_start();
+        $_SESSION["email"] = $email;
+
+        // Redirect the user to the dashboard
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        // Set an error message if the user is not registered
+        $errorMessage = "Invalid email or password.";
+        // Call the JavaScript function to show the error message
+        echo '<script>alert("' . $errorMessage . '");</script>';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +43,6 @@
     <title>DeskStock</title>
 </head>
 <body>
-    <form method="POST" action="login_check.php">
     <div class= "wrapper">
         <div class="container main">
             <div class="row">
@@ -19,27 +52,30 @@
                     </div>
                 </div>
                 <div class="col-md-6 right">
-                    <div class="input-box">
-                        <header>Login Form</header>
-                        <div class="input-field">
-                            <input type="text" class="input" id="email" required autocomplete="off">
-                            <label for="email">Email</label>
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                        <div class="input-box">
+                            <header>Login Form</header>
+                            <div class="input-field">
+                                <input type="text" class="input" id="email" name="email" required autocomplete="off">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="password" class="input" id=password name="password" required>
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="submit" class="submit" value="Login">
+                            </div>
+                            <div class="signin">
+                                <span>Don't have an account? <a href="register.php">Register here</a></span>
+                            </div>
+                            <!-- Remove the PHP code for error message -->
                         </div>
-                        <div class="input-field">
-                            <input type="password" class="input" id=password required>
-                            <label for="password">password</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="submit" class="submit" value="Login">
-                        </div>
-                        <div class="signin">
-                            <span>Don't have an account? <a href="register.php">Register here</a></span>
-                        </div>
-
-                    </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    </form>
 </body>
 </html>
+
