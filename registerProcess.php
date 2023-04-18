@@ -18,8 +18,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $sql = "SELECT * FROM users WHERE email = ?";
     $val = array($email);
 
+    $stmt = sqlsrv_query($conn,$sql, $val);
+
     // Query to database
-    if (sqlsrv_query($conn, $sql, $val)) {
+    if (sqlsrv_fetch( $stmt ) === false) {
         echo 'Email address already registered';
     } else {
         //If email not present, then insert registration details to our database
