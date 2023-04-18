@@ -28,8 +28,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         if (sqlsrv_query($conn, $sql, $params)) {
             // If success, display this message.
             // echo 'Registration successful. <a href="login.php">Click here to log in.</a>';
-            echo '<script> alert("Registration Successful"); </script>';
-            header("Location:login.php");
+            //echo '<script> alert("Registration Successful"); </script>';
+            header("Location:login.php?success=true");
         } else {
             // If error occured when querying the database, display the error for debugging purpose.
             if (($errors = sqlsrv_errors()) != null) {

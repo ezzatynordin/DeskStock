@@ -1,4 +1,9 @@
 <?php
+
+if($_GET['success'] == 'true')
+{
+    echo '<script> alert("Registration Success"); </script>';
+}
 // Connect to the database
 include 'config.php';
 
