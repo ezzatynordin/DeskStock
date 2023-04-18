@@ -46,5 +46,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         }
 
     }
+}else{
+    echo 'No data passed from the form!.';
 }
 ?>

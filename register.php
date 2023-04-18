@@ -9,7 +9,7 @@
     <title>DeskStock</title>
 </head>
 <body>
-    <form method="post" action="config.php">
+    <form method="POST" action="registerProcess.php">
         <div class= "wrapper">
             <div class="container main">
                 <div class="row">
