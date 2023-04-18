@@ -29,7 +29,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             // If success, display this message.
             // echo 'Registration successful. <a href="login.php">Click here to log in.</a>';
             //echo '<script> alert("Registration Successful"); </script>';
-            header("Location:login.php?success=true");
+            echo '<script> alert("Registration Success"); </script>';
+            header("Location:login.php");
+            exit;
         } else {
             // If error occured when querying the database, display the error for debugging purpose.
             if (($errors = sqlsrv_errors()) != null) {
