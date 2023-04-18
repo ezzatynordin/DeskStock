@@ -22,11 +22,11 @@
                         <div class="input-box">
                             <header>Create account</header>
                             <div class="input-field">
-                                <input type="text" class="input" id='email' required autocomplete="off">
+                                <input type="text" class="input" id='email' name="email" required autocomplete="off">
                                 <label for="email">Email</label>
                             </div>
                             <div class="input-field">
-                                <input type="password" class="input" id='password' required>
+                                <input type="password" class="input" id='password' name="password" required>
                                 <label for="password">password</label>
                             </div>
                             <div class="input-field">
