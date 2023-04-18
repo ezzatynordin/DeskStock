@@ -6,18 +6,16 @@ include 'config.php';
 
 // Here we check if email and password is not null (passed from the form properly)
 if (isset($_POST['email']) && isset($_POST['password'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    //$email = $_POST['email'];
+    //$password = $_POST['password'];
 
-    // $email = "ezzatybusuk@gmail.com";
-    // $password = "1234";
+    $email = "ezzatybusuk@gmail.com";
+    $password = "budakdemam";
 
-    // Debugging purpose
-    echo '$email';
-    echo '$password';
+    // Debugging purpose;
 
     // Do a query here to check if the email already present or not
-    $sql = "SELECT * FROM [deskStock].[users] WHERE email = ?";
+    $sql = "SELECT * FROM users WHERE email = ?";
     $val = array($email);
 
     // Query to database
@@ -25,7 +23,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         echo 'Email address already registered';
     } else {
         //If email not present, then insert registration details to our database
-        $sql = "INSERT INTO [deskStock].[users] (email, password) VALUES (?,?)";
+        $sql = "INSERT INTO users (email, password) VALUES (?,?)";
 
         // This params is responsible to pass value to the query above with ? mark. Why use this method? To avoid sql injection
         $params = array($email, $password);
