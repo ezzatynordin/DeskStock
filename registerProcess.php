@@ -6,22 +6,16 @@ include 'config.php';
 
 // Here we check if email and password is not null (passed from the form properly)
 if (isset($_POST['email']) && isset($_POST['password'])) {
-    //$email = $_POST['email'];
-    //$password = $_POST['password'];
-
-    $email = "ezzatybusuk@gmail.com";
-    $password = "budakdemam";
-
-    // Debugging purpose;
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
     // Do a query here to check if the email already present or not
     $sql = "SELECT * FROM users WHERE email = ?";
-    $val = array($email);
+    $params = array($email);
+    $stmt = sqlsrv_query($conn, $sql, $params);
 
-    $stmt = sqlsrv_query($conn,$sql, $val);
-
-    // Query to database
-    if (sqlsrv_fetch( $stmt ) === false) {
+    if (sqlsrv_has_rows($stmt)) {
+        //If email already present, display this message
         echo 'Email address already registered';
     } else {
         //If email not present, then insert registration details to our database
@@ -46,7 +40,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         }
 
     }
-}else{
+} else {
     echo 'No data passed from the form!.';
 }
+
+sqlsrv_close($conn);
+
 ?>
