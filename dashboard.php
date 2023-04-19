@@ -1,91 +1,56 @@
-<?php 
-    // start session
-    session_start();
-    // check if user is logged in
-    if(!isset($_SESSION["email"])){
-        header("Location: login.php");
-        exit();
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Inventory</title>
-    <link rel="stylesheet" href="bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Dashboard</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!--<form method="POST" action="dashboardProcess.php">-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-less dark" style="background-color: #ececec">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Inventory Dashboard</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Inventory</a>
-                    </li>
-                </ul>
-            </div>
+            <a class="navbar-brand" href="#">DeskStock</a>
             <form class="d-flex" method="POST" action="logout.php">
                 <button class="btn btn-outline-danger" type="submit">Logout</button>
             </form>
         </div>
     </nav>
-    
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Inventory Items</h3>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Item Name</th>
-                            <th>Vendor</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                            // connect to database
-                            $serverName = "F1-LAPTOP-MPC\SQLEXPRESS";
-                            $connectionInfo = array("Database" => "deskStock");
-                            $conn = sqlsrv_connect($serverName, $connectionInfo);
-                
-                            if($conn){
-                                // query inventory items
-                                $sql = "SELECT * FROM Products";
-                                $stmt = sqlsrv_query($conn, $sql);
-                                if($stmt){
-                                    while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
-                                        echo "<tr>";
-                                        echo "<td>" . $row["product_name"] . "</td>";
-                                        echo "<td>" . $row["vendor"] . "</td>";
-                                        echo "<td>" . $row["quantity"] . "</td>";
-                                        echo "<td>" . $row["price"] . "</td>";
+    <div class="container mt-5">
+    <div class="container">
+        <a href="add_new.php" class="btn btn-dark mb-3">Add New</a>
+        <table class="table table-hover text-center">      
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Vendor</th>
+      <th scope="col">Total Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <td>Stabilo Crayon</td>
+        <td>Stabilo.Sdn.Bhd</td>
+        <td>0.00</td>
+        <td>0</td>
+        <td>
+            <a href="edit.php" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
+            <a href="delete.php" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
+</tr>
 
-                                        echo "</tr>";
-                                    }
-                                }else{
-                                    echo "Error retrieving data from database.";
-                                }
-                                // close connection
-                                sqlsrv_close($conn);
-                            }else{
-                                echo "Error connecting to database.";
-                            }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+  </tbody>
+</table>
+
     </div>
-    <script src="bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<!--</form>-->
 </body>
 </html>

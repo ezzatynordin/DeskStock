@@ -1,40 +1,3 @@
-<?php
-
-//if($_GET['success'] == 'true')
-//{ echo '<script> alert("Registration Success"); </script>'; }
-
-// Connect to the database
-include 'config.php';
-
-// Check if the form has been submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the email and password from the form
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-
-    // Query the database to check if the user is registered
-    $query = "SELECT * FROM users WHERE email = ? AND password = ?";
-    $params = array($email, $password);
-    $result = sqlsrv_query($conn, $query, $params);
-
-    // If the query returns a row, the user is registered and can be logged in
-    if (sqlsrv_has_rows($result)) {
-        // Start the session and store the user's email
-        session_start();
-        $_SESSION["email"] = $email;
-
-        // Redirect the user to the dashboard
-        header("Location: dashboard.php");
-        exit();
-    } else {
-        // Set an error message if the user is not registered
-        $errorMessage = "Invalid email or password.";
-        // Call the JavaScript function to show the error message
-        echo '<script>alert("' . $errorMessage . '");</script>';
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>DeskStock</title>
 </head>
 <body>
+<form method="POST" action="loginProcess.php">
     <div class= "wrapper">
         <div class="container main">
             <div class="row">
@@ -69,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="input-field">
                                 <input type="submit" class="submit" value="Login">
                             </div>
+</form>
                             <div class="signin">
                                 <span>Don't have an account? <a href="register.php">Register here</a></span>
                             </div>
