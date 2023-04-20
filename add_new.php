@@ -46,7 +46,7 @@
 
             <div>
                 <button type="submit" class="btn btn-success" name="submit">Save</button>
-                <button type="cancel" class="btn btn-danger" name="submit">Cancel</button>
+                <button type="cancel" class="btn btn-danger" name="cancel">Cancel</button>
                 <!--<a href=index.php" class ="btn btn-danger">Cancel</a>-->
 
             </div>

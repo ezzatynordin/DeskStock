@@ -50,8 +50,8 @@ $result = sqlsrv_query($conn,$sql,array(),array("Scrollable" => SQLSRV_CURSOR_KE
         <td><?php echo $row['price']; ?></td>
         <td><?php echo $row['quantity']; ?></td>
         <td>
-            <a href="edit.php?id=<?php echo $row['id']; ?>" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
-            <a href="delete.php?id=<?php echo $row['id']; ?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
+            <a href="edit.php?id=<?php echo $row['product_id']; ?>" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
+            <a href="delete.php?id=<?php echo $row['product_id']; ?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
 </tr>
 <?php }
     }

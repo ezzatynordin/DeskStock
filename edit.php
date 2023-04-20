@@ -1,3 +1,49 @@
+<?php
+include "config.php";
+
+if (isset($_POST['update'])) {
+    $id = $_POST['id'];
+    $product_name = $_POST['product_name'];
+    $vendor = $_POST['vendor'];
+    $price = $_POST['price'];
+    $quantity = $_POST['quantity'];
+
+    $query = "UPDATE Products SET product_name = ?, vendor = ?, price = ?, quantity = ? WHERE product_id = ?";
+    $params = array($product_name, $vendor, $price, $quantity, $id);
+
+    $stmt = sqlsrv_query($conn, $query, $params);
+
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    } else {
+        header("location: dashboard.php");
+        exit();
+    }
+}
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    $query = "SELECT * FROM Products WHERE product_id = ?";
+    $params = array($id);
+
+    $stmt = sqlsrv_query($conn, $query, $params);
+
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    } else {
+        $row = sqlsrv_fetch_array($stmt);
+        $product_name = $row['product_name'];
+        $vendor = $row['vendor'];
+        $price = $row['price'];
+        $quantity = $row['quantity'];
+    }
+} else {
+    header("location: dashboard.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,53 +52,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <title>Dashboard</title>
+    <title>Edit Product</title>
 </head>
 <body>
-    <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: #ececec">
-        DeskStock
+    <nav class="navbar navbar-expand-lg navbar-light bg-less dark" style="background-color: #ececec">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">DeskStock</a>
+            <form class="d-flex" method="POST" action="logout.php">
+                <button class="btn btn-outline-danger" type="submit">Logout</button>
+            </form>
+        </div>
     </nav>
-
-    <div class="container">
-        <div class="text-center mb-4">
-            <h3>Edit Item</h3>
-            <p class="text-muted">Click update after changing any information</p>
-        </div> 
-
-        <div class="container d-flex justify-content-center">
+    <div class="container d-flex justify-content-center">
             <form action=" " method="post" style="width:50vw; min-width: 300px;">
             <div class="row">
+    <div class="container mt-5">
+        <h2 class="mb-4">Edit Product</h2>
+        <form method="POST" action="">
+
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+
+                <label for="product_name">Product Name</label>
 
                 <div class="mb-3">
-                    <label class="form-label">Product Name:</label>
-                    <input type="text" class="form-control" name="product_name" placeholder="Stabilo Crayon">
-                </div>
-
+                <input type="text" class="form-control" name="product_name" id="product_name" value="<?php echo $product_name; ?>">
+            </div>
+                
                 <div class="mb-3">
-                    <label class="form-label">Vendor:</label>
-                    <input type="vendor" class="form-control" name="vendor" placeholder="Stabilo.Sdn.Bhd">
+                    <label for="vendor">Vendor</label>
+                    <input type="text" class="form-control" name="vendor" id="vendor" value="<?php echo $vendor; ?>">
                 </div>
-
-            <div class="mb-3">
-                <label class="form-label">Total Price:</label>
-                <input type="price" class="form-control" name="price" placeholder="0.00">       
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Quantity:</label>
-                <input type="quantity" class="form-control" name="quantity" placeholder="0">       
-            </div>
-
-            <div>
-                <button type="submit" class="btn btn-success" name="submit">Save</button>
-                <button type="cancel" class="btn btn-danger" name="submit">Cancel</button>
-                <!--<a href=index.php" class ="btn btn-danger">Cancel</a>
-            </div>
-</div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-</form>
+                
+                <div class="mb-3">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" name="price" id="price" value="<?php echo $price; ?>">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" class="form-control" name="quantity" id="quantity" value="<?php echo $quantity; ?>">
+                </div>
+                
+                <button type="update" name="update" class="btn btn-primary">Update</button>
+                <a href="dashboard.php" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+<!--Bootstrap-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>
