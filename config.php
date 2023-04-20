@@ -8,5 +8,4 @@ if (!$conn) {
    die('Connection failed: ' . print_r(sqlsrv_errors(), true));
 }
 
-
 ?>

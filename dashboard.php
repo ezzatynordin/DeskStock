@@ -30,6 +30,7 @@ $result = sqlsrv_query($conn,$sql,array(),array("Scrollable" => SQLSRV_CURSOR_KE
         <table class="table table-hover text-center">      
   <thead class="table-dark">
     <tr>
+      <th scope="col">No</th>
       <th scope="col">ID</th>
       <th scope="col">Product Name</th>
       <th scope="col">Vendor</th>
@@ -41,9 +42,13 @@ $result = sqlsrv_query($conn,$sql,array(),array("Scrollable" => SQLSRV_CURSOR_KE
   <tbody>
   <?php
     if(sqlsrv_num_rows($result)>0){
+  
+      $i = 1;
       while($row = sqlsrv_fetch_array($result)){
+        
     ?>
     <tr>
+        <th><?php echo $i; ?></th>
         <th scope="row"><?php echo $row['product_id']; ?></th>
         <td><?php echo $row['product_name']; ?></td>
         <td><?php echo $row['vendor']; ?></td>
@@ -53,7 +58,7 @@ $result = sqlsrv_query($conn,$sql,array(),array("Scrollable" => SQLSRV_CURSOR_KE
             <a href="edit.php?id=<?php echo $row['product_id']; ?>" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
             <a href="delete.php?id=<?php echo $row['product_id']; ?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
 </tr>
-<?php }
+<?php $i++; }
     }
     else{
       if( ($errors = sqlsrv_errors() ) != null) {
