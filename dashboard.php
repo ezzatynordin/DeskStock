@@ -1,3 +1,9 @@
+<?php
+include "config.php";
+$sql = "SELECT * FROM Products";
+$result = sqlsrv_query($conn,$sql,array(),array("Scrollable" => SQLSRV_CURSOR_KEYSET));
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,16 +39,32 @@
     </tr>
   </thead>
   <tbody>
+  <?php
+    if(sqlsrv_num_rows($result)>0){
+      while($row = sqlsrv_fetch_array($result)){
+    ?>
     <tr>
-        <th scope="row">1</th>
-        <td>Stabilo Crayon</td>
-        <td>Stabilo.Sdn.Bhd</td>
-        <td>0.00</td>
-        <td>0</td>
+        <th scope="row"><?php echo $row['product_id']; ?></th>
+        <td><?php echo $row['product_name']; ?></td>
+        <td><?php echo $row['vendor']; ?></td>
+        <td><?php echo $row['price']; ?></td>
+        <td><?php echo $row['quantity']; ?></td>
         <td>
-            <a href="edit.php" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
-            <a href="delete.php" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
+            <a href="edit.php?id=<?php echo $row['id']; ?>" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
+            <a href="delete.php?id=<?php echo $row['id']; ?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
 </tr>
+<?php }
+    }
+    else{
+      if( ($errors = sqlsrv_errors() ) != null) {
+        foreach( $errors as $error ) {
+            echo "SQLSTATE: ".$error[ 'SQLSTATE']."<br />";
+            echo "code: ".$error[ 'code']."<br />";
+            echo "message: ".$error[ 'message']."<br />";
+        }
+    }
+    }
+    ?>
 
   </tbody>
 </table>
