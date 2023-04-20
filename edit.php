@@ -1,5 +1,10 @@
 <?php
 include "config.php";
+session_start();
+if (!isset($_SESSION['email'])) {
+    header('Location: login.php');
+    exit();
+}
 
 if (isset($_POST['update'])) {
     $id = $_POST['id'];
@@ -39,10 +44,20 @@ if (isset($_GET['id'])) {
         $quantity = $row['quantity'];
     }
 } else {
-    header("location: dashboard.php");
+    header("location: login.php");
     exit();
 }
+
 ?>
+
+?>
+
+<script>
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+</script>
 
 <!DOCTYPE html>
 <html lang="en">

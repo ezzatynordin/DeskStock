@@ -1,3 +1,11 @@
+
+<script>
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

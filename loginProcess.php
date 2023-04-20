@@ -30,7 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Set an error message if the user is not registered
         $errorMessage = "Invalid email or password.";
         // Call the JavaScript function to show the error message
-        echo '<script>alert("' . $errorMessage . '");</script>';
+       // echo '<script>alert("' . $errorMessage . '");</script>';
+        echo '<script>alert("' . $errorMessage . '"); window.location.href = "login.php";</script>';
+
     }
 }
+
 ?>

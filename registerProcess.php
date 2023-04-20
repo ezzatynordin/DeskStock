@@ -3,7 +3,6 @@
 // Include database configuration here
 include 'config.php';
 
-
 // Here we check if email and password is not null (passed from the form properly)
 if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];

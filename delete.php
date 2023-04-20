@@ -20,4 +20,12 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
     // Invalid product ID
     echo "Invalid product ID.";
 }
+
+include "config.php";
+session_start();
+if (!isset($_SESSION['email'])) {
+    header('Location: login.php');
+    exit();
+}
+
 ?>

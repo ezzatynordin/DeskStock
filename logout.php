@@ -1,7 +1,9 @@
 <?php
-session_start(); // start the session
-session_unset(); // unset all session variables
-session_destroy(); // destroy the session
-header("Location: login.php"); // redirect the user to the login page
+session_start();
+session_destroy();
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+header("Location: login.php");
 exit();
 ?>

@@ -2,8 +2,19 @@
 include "config.php";
 $sql = "SELECT * FROM Products";
 $result = sqlsrv_query($conn,$sql,array(),array("Scrollable" => SQLSRV_CURSOR_KEYSET));
-?>
 
+session_start();
+if (!isset($_SESSION['email'])) {
+    header('Location: login.php');
+    exit();
+}
+?>
+<script>
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +29,9 @@ $result = sqlsrv_query($conn,$sql,array(),array("Scrollable" => SQLSRV_CURSOR_KE
 <!--<form method="POST" action="dashboardProcess.php">-->
     <nav class="navbar navbar-expand-lg navbar-light bg-less dark" style="background-color: #ececec">
         <div class="container-fluid">
+        <a href="#" class="nav-link" disabled>
+          <p style="color:black;" text-align="justify">User: <?php echo $_SESSION['email']?><br/></p>
+          </a>
             <a class="navbar-brand" href="#">DeskStock</a>
             <form class="d-flex" method="POST" action="logout.php">
                 <button class="btn btn-outline-danger" type="submit">Logout</button>
